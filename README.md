@@ -1,27 +1,159 @@
-# Graphic
+import { Component, OnInit } from '@angular/core';
+import * as p5 from 'p5';
+import { HostListener } from "@angular/core";
+import { Snake } from "./snake";
+import { identifierModuleUrl } from '@angular/compiler';
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.7.
+@Component({
+  selector: 'app-snake',
+  templateUrl: './snake.component.html',
+  styleUrls: ['./snake.component.scss']
+})
+export class SnakeComponent implements OnInit {
+  screenHeight: number;
+  screenWidth: number;
+  canvas: p5;
+  score: any = 0;
+  game_over: boolean = false;
 
-## Development server
+  constructor() { 
+    this.getScreenSize();
+  }
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+  @HostListener('window:resize', ['$event'])
+    getScreenSize(event?) {
+          this.screenHeight = window.innerHeight;
+          this.screenWidth = window.innerWidth;
+          console.log(this.screenHeight, this.screenWidth);
+    }
 
-## Code scaffolding
+    getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    scoreUpdate(score){
+      this.score = score;
+    }
+    
+    gameOver(game_over){
+      this.gameOver = game_over;
+    }
 
-## Build
+  ngOnInit() {
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+    const sketch = (s) => {
+      let size = 500;
+      let pix = 20;
+      let col,row;
+      let snake;
+      let x,y;
+      let food;
 
-## Running unit tests
+      s.preload = () => {
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+      }
 
-## Running end-to-end tests
+      s.setup = () => {
+        s.createCanvas(size, size).parent('sketch-holder');
+        s.frameRate(10);
+        col = Math.floor(size / pix);
+        row = Math.floor(size / pix);
+        console.log(col,row);
+        snake = new Snake(pix,size);
+        pickLoc();
+      }
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+      const pickLoc = () => {
+        food = s.createVector(this.getRandomInt(row),this.getRandomInt(col));
+        food.mult(pix);
+      }
 
-## Further help
+      const death = () => {
+        for(let i=0;i < snake.tail.length;i++){
+            let pos = snake.tail[i];
+            let d = s.dist(snake.x,snake.y,pos.x,pos.y);
+            if(d < 1){
+              console.log("death");
+              snake.death();
+              // this.gameOver(true);
+            }
+        }
+    }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+      s.draw = () =>{
+        // this.scoreUpdate(snake.tail.length);
+        // this.gameOver(false);
+        s.background(51);
+        death();
+        snake.update(s.createVector(snake.x,snake.y));
+
+        x = s.constrain(snake.x, 0, size - pix);
+        y = s.constrain(snake.y, 0, size - pix);
+        snake.constrain(x,y);
+
+        s.fill(255);
+        for(let i=0;i < snake.total;i++){
+          s.rect(snake.tail[i].x,snake.tail[i].y,pix,pix);
+        }
+        s.rect(snake.x,snake.y,pix,pix);
+
+        let d = s.dist(snake.x,snake.y,food.x,food.y);
+        if(snake.eat(d)){
+          pickLoc();
+        }
+
+        s.fill(255,0,100);
+        s.noStroke()
+        s.rect(food.x,food.y,pix,pix);
+
+      }
+
+      s.keyPressed = () =>{
+        if(s.keyCode === s.UP_ARROW){
+          snake.dir(0,-1);
+        } else if(s.keyCode === s.DOWN_ARROW){
+          snake.dir(0,1);
+        }else if(s.keyCode === s.RIGHT_ARROW){
+          snake.dir(1,0);
+        }else if(s.keyCode === s.LEFT_ARROW){
+          snake.dir(-1,0);
+        }
+
+      }
+
+    }
+
+    this.canvas = new p5(sketch);
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+<section id="screen">
+    <div class="container">
+        <div class="snake-game row justify-content-center align-content-center ">
+            <div class="col ">
+                <div id="sketch-holder "></div>
+            </div>
+            <!-- <div class="col ">
+                <p class="lead header ">
+                    Snake Game
+                </p>
+                <p class="lead ">
+                    Your Score is {{ score }}
+                </p>
+                <div class="alert alert-danger" role="alert" *ngIf="game_over">
+                    This is a danger alert—check it out!
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>

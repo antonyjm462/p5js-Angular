@@ -1,0 +1,129 @@
+body {
+    background-color: white;
+}
+
+#Main {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/img/0e4c1c80-9f06-11e9-8724-4ffe8f6c8a68.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar-light .navbar-brand {
+    background-image: url("../../assets/img/p5js.svg");
+    background-repeat: no-repeat;
+    width: 180px;
+    background-position: center;
+    background-size: 100%;
+    height: 100px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: black;
+    text-transform: uppercase;
+}
+
+#main-head {
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+}
+
+#sub-head {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 50px;
+}
+
+.overview-head {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-style: bold;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.overview-content {
+    font-size: 13px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+}
+
+.slide-btn {
+    color: #000000;
+}
+
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+    text-align: center;
+    max-width: 700px;
+}
+
+.col.between-col {
+    border: 1px solid rgba(0, 0, 0, 0.64);
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.section-heading {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 50px;
+    margin-top: 30px;
+}
+
+.project-head {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.project-content {
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+#About {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../../assets/img/Bullseye-Gradient.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.abb {
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.about-content {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 23px;
+}
+
+.about-head {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 50px;
+}
+
+#Members {
+    background-color: #000b32;
+    color: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.Member-head {
+    font-size: 30px;
+    font-weight: 600;
+}

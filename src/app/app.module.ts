@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './componets/canvas/canvas.component';
 import { SnakeComponent } from './componets/snake/snake.component';
+import { HomeComponent } from './componets/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CanvasComponent,
     SnakeComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

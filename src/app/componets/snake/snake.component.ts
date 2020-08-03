@@ -13,6 +13,8 @@ export class SnakeComponent implements OnInit {
   screenHeight: number;
   screenWidth: number;
   canvas: p5;
+  score: any = 0;
+  game_over: boolean = false;
 
   constructor() { 
     this.getScreenSize();
@@ -28,7 +30,22 @@ export class SnakeComponent implements OnInit {
     getRandomInt(max) {
       return Math.floor(Math.random() * Math.floor(max));
     }
+
+    scoreUpdate(score){
+      this.score = score;
+      console.log(this.score);
+    }
     
+    gameOver(game_over){
+      this.game_over = game_over;
+      if(this.game_over){
+        setTimeout(() => {
+          console.log("restart");
+          this.game_over = false;
+        }, 1000);
+      }
+      console.log(this.game_over);
+    }
 
   ngOnInit() {
 
@@ -66,14 +83,17 @@ export class SnakeComponent implements OnInit {
             if(d < 1){
               console.log("death");
               snake.death();
+              this.gameOver(true);
             }
         }
     }
 
       s.draw = () =>{
+        this.scoreUpdate(snake.tail.length);
         s.background(51);
         death();
-        snake.update(s.createVector(snake.x,snake.y));
+        if(!this.game_over){
+          snake.update(s.createVector(snake.x,snake.y));
 
         x = s.constrain(snake.x, 0, size - pix);
         y = s.constrain(snake.y, 0, size - pix);
@@ -93,6 +113,8 @@ export class SnakeComponent implements OnInit {
         s.fill(255,0,100);
         s.noStroke()
         s.rect(food.x,food.y,pix,pix);
+        }
+        
 
       }
 

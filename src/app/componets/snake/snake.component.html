@@ -1,10 +1,20 @@
 <section id="screen">
     <div class="container">
-        <div class="row justify-content-center">
-            <h1> SNAKE GAME </h1>
-        </div>
-        <div class="row justify-content-center">
-            <div id="sketch-holder"></div>
+        <div class="snake-game row justify-content-center align-content-center ">
+            <div class="col">
+                <div id="sketch-holder"></div>
+            </div>
+            <div class="col ">
+                <p class="lead header ">
+                    Snake Game
+                </p>
+                <p class="lead ">
+                    Your Score is {{ score }}
+                </p>
+                <div class="alert alert-danger" role="alert" *ngIf="game_over">
+                    Game Over
+                </div>
+            </div>
         </div>
     </div>
 </section>

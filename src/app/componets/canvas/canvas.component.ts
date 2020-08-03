@@ -53,20 +53,7 @@ export class CanvasComponent implements OnInit {
         s.line(v1.x, v1.y, v2.x, v2.y);
       }
 
-      s.setup = () => {
-        let p = s.createCanvas(this.screenWidth, this.screenHeight - 100);
-        p.parent('sketch-holder');
-        col = 1 + Math.floor(this.screenWidth / res);
-        row = 1 + Math.floor(this.screenHeight / res);
-
-        this.field = [];
-
-        // for(var i: number = 0; i < col; i++) {
-        //     this.field[i] = [];
-        //     for(var j: number = 0; j < row; j++) {
-        //         this.field[i][j] = new Number();
-        //     }
-        // }
+      const fill = () => {
         for (let i = 0; i <= col; i++) {
           let k = [];
           for (let j = 0; j <= row; j++) {
@@ -80,6 +67,22 @@ export class CanvasComponent implements OnInit {
             this.field[i][j] = Math.floor(this.getRandomInt(2));
           }
         }
+      }
+
+      s.setup = () => {
+        let p = s.createCanvas(this.screenWidth, this.screenHeight - 100);
+        p.parent('sketch-holder');
+        col = 1 + Math.floor(this.screenWidth / res);
+        row = 1 + Math.floor(this.screenHeight / res);
+
+        this.field = [];
+        fill();
+        // for(var i: number = 0; i < col; i++) {
+        //     this.field[i] = [];
+        //     for(var j: number = 0; j < row; j++) {
+        //         this.field[i][j] = new Number();
+        //     }
+        // }
       }
 
       s.draw = () => {
@@ -153,7 +156,9 @@ export class CanvasComponent implements OnInit {
           }
         }
         
-
+        // setTimeout(() => {
+        //   fill();
+        // }, 1000);
       }//draw
 
       // s.mouseDragged = () => {
@@ -176,23 +181,12 @@ export class CanvasComponent implements OnInit {
       // }
 
       s.mouseDragged = () => {
-        // bx = s.mouseX - xOffset;
-        // by = s.mouseY - yOffset;
-        // setTimeout(() => {
-        //   console.log("hello")
-        //   for(let i = col-1;i > 0;i++){
-        //     for(let j = row-1;j > 0;j++){
-        //       this.field[i-1][j] = this.field[i][j];
-        //       // this.field[i][j] = Math.floor(this.getRandomInt(2));
-        //       console.log(this.field[i][j]);
-        //   }
-        // }
-          
-        // }, 10);
+        fill();
         locked = true;
     }
 
       s.mouseReleased = () => {
+        fill();
         locked = false;
       }
 

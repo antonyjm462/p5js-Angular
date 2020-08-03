@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "graphic-96d64"
+    "default": "graphic-96d64",
+    "p5js": "graphic-96d64"
   }
 }
